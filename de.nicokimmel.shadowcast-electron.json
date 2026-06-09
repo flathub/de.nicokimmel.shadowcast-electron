@@ -1,53 +1,53 @@
 {
-  "app-id": "de.nicokimmel.shadowcast-electron",
-  "runtime": "org.freedesktop.Platform",
-  "runtime-version": "23.08",
-  "sdk": "org.freedesktop.Sdk",
-  "base": "org.electronjs.Electron2.BaseApp",
-  "base-version": "23.08",
-  "command": "run.sh",
-  "finish-args": [
-    "--share=ipc",
-    "--socket=x11",
-    "--device=all",
-    "--socket=pulseaudio",
-    "--share=network"
-  ],
-  "modules": [
-    {
-      "name": "shadowcast-electron",
-      "buildsystem": "simple",
-      "build-commands": [
-        "mkdir /app/main",
-        "cp -r shadowcast-electron/* /app/main",
-        "install -Dm644 shadowcast-electron/resources/app/flatpak/de.nicokimmel.shadowcast-electron.desktop /app/share/applications/de.nicokimmel.shadowcast-electron.desktop",
-        "install -Dm644 shadowcast-electron/resources/app/flatpak/de.nicokimmel.shadowcast-electron.metainfo.xml /app/share/metainfo/de.nicokimmel.shadowcast-electron.metainfo.xml",
-        "install -Dm644 shadowcast-electron/resources/app/src/public/images/icon.png /app/share/icons/hicolor/512x512/apps/de.nicokimmel.shadowcast-electron.png",
-        "install -Dm755 run.sh /app/bin/run.sh"
-      ],
-      "sources": [
+    "app-id": "de.nicokimmel.shadowcast-electron",
+    "runtime": "org.freedesktop.Platform",
+    "runtime-version": "25.08",
+    "sdk": "org.freedesktop.Sdk",
+    "base": "org.electronjs.Electron2.BaseApp",
+    "base-version": "25.08",
+    "command": "run.sh",
+    "finish-args": [
+        "--share=ipc",
+        "--socket=x11",
+        "--device=all",
+        "--socket=pulseaudio",
+        "--share=network"
+    ],
+    "modules": [
         {
-          "type": "archive",
-          "only-arches": ["aarch64"],
-          "url": "https://github.com/nicokimmel/shadowcast-electron/releases/download/v1.0.2/shadowcast-electron-linux-arm64-1.0.2.zip",
-          "sha256": "24623f74faf42713c60f18e828a5f477133acca8140f04fcc486bf717a2bce0b",
-          "dest": "shadowcast-electron"
-        },
-        {
-          "type": "archive",
-          "only-arches": ["x86_64"],
-          "url": "https://github.com/nicokimmel/shadowcast-electron/releases/download/v1.0.2/shadowcast-electron-linux-x64-1.0.2.zip",
-          "sha256": "5f13be1fb812114520fd714411fb6c9745ae9880ec66121776d99daec97adaa6",
-          "dest": "shadowcast-electron"
-        },
-        {
-          "type": "script",
-          "commands": [
-            "exec zypak-wrapper.sh /app/main/shadowcast-electron \"$@\""
-          ],
-          "dest-filename": "run.sh"
+            "name": "shadowcast-electron",
+            "buildsystem": "simple",
+            "build-commands": [
+                "mkdir /app/main",
+                "cp -r shadowcast-electron/* /app/main",
+                "install -Dm644 shadowcast-electron/resources/app/flatpak/${FLATPAK_ID}.desktop -t /app/share/applications/",
+                "install -Dm644 shadowcast-electron/resources/app/flatpak/${FLATPAK_ID}.metainfo.xml -t /app/share/metainfo/",
+                "install -Dm644 shadowcast-electron/resources/app/src/public/images/icon.png /app/share/icons/hicolor/512x512/apps/${FLATPAK_ID}.png",
+                "install -Dm755 run.sh -t /app/bin/"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "only-arches": ["aarch64"],
+                    "url": "https://github.com/nicokimmel/shadowcast-electron/releases/download/v1.0.2/shadowcast-electron-linux-arm64-1.0.2.zip",
+                    "sha256": "24623f74faf42713c60f18e828a5f477133acca8140f04fcc486bf717a2bce0b",
+                    "dest": "shadowcast-electron"
+                },
+                {
+                    "type": "archive",
+                    "only-arches": ["x86_64"],
+                    "url": "https://github.com/nicokimmel/shadowcast-electron/releases/download/v1.0.2/shadowcast-electron-linux-x64-1.0.2.zip",
+                    "sha256": "5f13be1fb812114520fd714411fb6c9745ae9880ec66121776d99daec97adaa6",
+                    "dest": "shadowcast-electron"
+                },
+                {
+                    "type": "script",
+                    "commands": [
+                        "exec zypak-wrapper.sh /app/main/shadowcast-electron \"$@\""
+                    ],
+                    "dest-filename": "run.sh"
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }
